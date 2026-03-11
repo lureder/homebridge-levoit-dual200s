@@ -1,0 +1,181 @@
+{
+  "pluginAlias": "LevoitDual200S",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "<p align=\"left\"><b>Homebridge plugin for Levoit Dual 200S humidifier.</b></p>",
+  "schema": {
+    "type": "object",
+    "required": [
+      "email",
+      "password",
+      "countryCode"
+    ],
+    "properties": {
+      "name": {
+        "title": "Plugin Name",
+        "type": "string",
+        "default": "Levoit",
+        "description": "The name shown for this platform in Homebridge."
+      },
+      "email": {
+        "title": "VeSync Email",
+        "type": "string",
+        "description": "The email address you use to sign in to the VeSync app."
+      },
+      "password": {
+        "title": "VeSync Password",
+        "type": "string",
+        "description": "The password you use to sign in to the VeSync app."
+      },
+      "countryCode": {
+        "title": "Country",
+        "type": "string",
+        "default": "CA",
+        "description": "Select the country associated with your VeSync account.",
+        "oneOf": [
+          { "title": "Albania", "enum": ["AL"] },
+          { "title": "Andorra", "enum": ["AD"] },
+          { "title": "Austria", "enum": ["AT"] },
+          { "title": "Belarus", "enum": ["BY"] },
+          { "title": "Belgium", "enum": ["BE"] },
+          { "title": "Bosnia and Herzegovina", "enum": ["BA"] },
+          { "title": "Bulgaria", "enum": ["BG"] },
+          { "title": "Canada", "enum": ["CA"] },
+          { "title": "Croatia", "enum": ["HR"] },
+          { "title": "Cyprus", "enum": ["CY"] },
+          { "title": "Czech Republic", "enum": ["CZ"] },
+          { "title": "Denmark", "enum": ["DK"] },
+          { "title": "Estonia", "enum": ["EE"] },
+          { "title": "Finland", "enum": ["FI"] },
+          { "title": "France", "enum": ["FR"] },
+          { "title": "Germany", "enum": ["DE"] },
+          { "title": "Greece", "enum": ["GR"] },
+          { "title": "Hungary", "enum": ["HU"] },
+          { "title": "Iceland", "enum": ["IS"] },
+          { "title": "Ireland", "enum": ["IE"] },
+          { "title": "Italy", "enum": ["IT"] },
+          { "title": "Latvia", "enum": ["LV"] },
+          { "title": "Liechtenstein", "enum": ["LI"] },
+          { "title": "Lithuania", "enum": ["LT"] },
+          { "title": "Luxembourg", "enum": ["LU"] },
+          { "title": "Malta", "enum": ["MT"] },
+          { "title": "Moldova", "enum": ["MD"] },
+          { "title": "Monaco", "enum": ["MC"] },
+          { "title": "Montenegro", "enum": ["ME"] },
+          { "title": "Netherlands", "enum": ["NL"] },
+          { "title": "North Macedonia", "enum": ["MK"] },
+          { "title": "Norway", "enum": ["NO"] },
+          { "title": "Poland", "enum": ["PL"] },
+          { "title": "Portugal", "enum": ["PT"] },
+          { "title": "Romania", "enum": ["RO"] },
+          { "title": "Russia", "enum": ["RU"] },
+          { "title": "San Marino", "enum": ["SM"] },
+          { "title": "Serbia", "enum": ["RS"] },
+          { "title": "Slovakia", "enum": ["SK"] },
+          { "title": "Slovenia", "enum": ["SI"] },
+          { "title": "Spain", "enum": ["ES"] },
+          { "title": "Sweden", "enum": ["SE"] },
+          { "title": "Switzerland", "enum": ["CH"] },
+          { "title": "Turkey", "enum": ["TR"] },
+          { "title": "Ukraine", "enum": ["UA"] },
+          { "title": "United Kingdom", "enum": ["GB"] },
+          { "title": "United States", "enum": ["US"] }
+        ]
+      },
+      "options": {
+        "title": "Advanced Settings",
+        "type": "object",
+        "description": "Optional plugin behavior and troubleshooting settings.",
+        "properties": {
+          "apiTimeout": {
+            "title": "API Timeout (ms)",
+            "type": "integer",
+            "default": 15000,
+            "description": "How long to wait (in milliseconds) for a response from VeSync before timing out."
+          },
+          "enableDebugMode": {
+            "title": "Enable Debug Logging",
+            "type": "boolean",
+            "default": false,
+            "description": "Enable detailed log output to assist with troubleshooting."
+          },
+          "showOffWhenDisconnected": {
+            "title": "Show Off When Offline",
+            "type": "boolean",
+            "default": false,
+            "description": "If enabled, the humidifier will appear as Off in HomeKit when it cannot be reached."
+          }
+        }
+      },
+      "exclude": {
+        "title": "Exclude Devices",
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Exclude by Device Name",
+            "type": "array",
+            "description": "Enter the exact device name as shown in the VeSync app.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "title": "Exclude by Device ID",
+            "type": "array",
+            "description": "Enter the device ID, UUID, or CID shown in the logs if you prefer excluding by identifier.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "layout": [
+    "name",
+    "email",
+    "password",
+    "countryCode",
+    {
+      "type": "fieldset",
+      "title": "Advanced Settings",
+      "description": "Optional settings for troubleshooting and connection behavior.",
+      "expandable": true,
+      "items": [
+        "options.apiTimeout",
+        "options.enableDebugMode",
+        "options.showOffWhenDisconnected"
+      ]
+    },
+    {
+      "type": "fieldset",
+      "title": "Exclude Devices",
+      "description": "Prevent specific humidifiers from being added to HomeKit. Leave empty to include all devices.",
+      "expandable": true,
+      "items": [
+        {
+          "key": "exclude.name",
+          "title": "Device Name",
+          "type": "array",
+          "add": "Add",
+          "items": [
+            {
+              "key": "exclude.name[]"
+            }
+          ]
+        },
+        {
+          "key": "exclude.id",
+          "title": "Device ID",
+          "type": "array",
+          "add": "Add",
+          "items": [
+            {
+              "key": "exclude.id[]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
