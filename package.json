@@ -4,7 +4,7 @@
   "displayName": "Levoit",
   "main": "dist/index.js",
   "license": "Apache-2.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "lureder",
     "url": "https://github.com/lureder"
@@ -45,9 +45,9 @@
     "homebridge"
   ],
   "types": "./dist/index.d.ts",
-"files": [
-  "dist",
-  "config.schema.json",
-  "README.md"
-]
+  "files": [
+    "dist",
+    "config.schema.json",
+    "README.md"
+  ]
 }
