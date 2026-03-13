@@ -197,22 +197,10 @@ export default class VeSyncAccessory {
     const { HUMIDIFYING, IDLE } =
       this.platform.Characteristic.CurrentHumidifierDehumidifierState;
 
-    if (!this.device.isOn) {
-      return IDLE;
-    }
-
-    if (this.device.mode === Mode.Manual) {
-      return HUMIDIFYING;
-    }
-
-    if (
-      this.device.targetReached ||
-      this.device.humidityLevel >= this.device.targetHumidity
-    ) {
-      return IDLE;
-    }
-
-    return HUMIDIFYING;
+    if (!this.device.isOn || this.device.targetReached) {
+  return IDLE;
+}
+return HUMIDIFYING;
   }
 
   private startPolling(): void {
